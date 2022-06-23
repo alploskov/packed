@@ -60,7 +60,7 @@ class InlineCode(object):
         indent_str = indent * "    "
         return "{indent}{code}".format(
             indent=indent_str,
-            code=self.code
+            code=translate(self.code)
         )
 
 
