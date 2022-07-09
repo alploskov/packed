@@ -35,7 +35,7 @@ class Text(object):
 
     def compose(self, parser, indent=0):
         indent_str = indent * "    "
-        return "{indent}'{whitespace}{value}'".format(
+        return "{indent}'''{whitespace}{value}'''".format(
             indent=indent_str,
             whitespace=self.whitespace or '',
             value=self.value
@@ -205,12 +205,11 @@ class PairedTag(object):
         has_contents = has_children or has_attributes
         paren_sep = '\n' if has_contents else ''
         contents_sep = ',\n' if has_contents else ''
-
         text.append(
-            "{indent}Elem({paren_sep}{indent_plus}'{name}'{contents_sep}".format(
+            "{indent}Elem({paren_sep}{indent_plus}{name}{contents_sep}".format(
                 indent=indent_str,
                 indent_plus=indent_plus_str if has_contents else '',
-                name=self.name,
+                name=f"'{self.name}'" if self.name.islower() else self.name,
                 paren_sep=paren_sep,
                 contents_sep=contents_sep
             )
